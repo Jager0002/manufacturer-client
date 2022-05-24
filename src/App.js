@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom"
+import Home from "./Pages/Home/Home"
+import Login from "./Pages/Login/Login"
+import Register from "./Pages/Login/Register"
+import { ToastContainer, Slide } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import RequireAuth from "./Authentication/RequireAuth"
+import Purchase from "./Pages/Purchase/Purchase"
+import Navbar from "./Components/Navbar/Navbar"
+import DashBoard from "./Pages/DashBoard/DashBoard"
+import Blogs from "./Pages/Blogs/Blogs"
+import MyOrders from "./Pages/MyOrders/MyOrders"
+import AddAReview from "./Pages/AddAReview/AddAReview"
+import MyProfile from "./Pages/MyProfile/MyProfile"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ToastContainer autoClose={3000} transition={Slide} />
+      <Navbar></Navbar>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route
+          path="/purchase/:id"
+          element={
+            <RequireAuth>
+              <Purchase />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route path="/dashboard" element={<DashBoard />}></Route>
+        <Route path="/blogs" element={<Blogs />}></Route>
+        <Route path="/myorder" element={<MyOrders />}></Route>
+        <Route path="/addreview" element={<AddAReview />}></Route>
+        <Route path="/myprofile" element={<MyProfile />}></Route>
+        {/* 404 page */}
+      </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
