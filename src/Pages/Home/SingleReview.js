@@ -3,7 +3,7 @@ const SingleReview = ({ review }) => {
   const stars = [...Array(ratings)]
 
   return (
-    <div className="card bg-white shadow-xl">
+    <div className="card bg-gray-50">
       <div className="card-body">
         <div className="grid justify-items-center">
           <div className="avatar">

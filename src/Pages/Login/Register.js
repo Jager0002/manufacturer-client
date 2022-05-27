@@ -7,6 +7,7 @@ import {
   useCreateUserWithEmailAndPassword,
   useUpdateProfile,
 } from "react-firebase-hooks/auth"
+import { axiosBaseUrlPublic } from "../../Api/axiosBaseUrl"
 
 const Register = () => {
   const [createUserWithEmailAndPassword, cUser, cLoading, cError] =
@@ -21,31 +22,35 @@ const Register = () => {
     reset,
   } = useForm({ mode: "onChange" })
 
-  console.log(errors)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || "/"
+
+  useEffect(() => {
+    if (cUser?.user?.displayName) {
+      const info = {
+        email: cUser.user?.email,
+        name: cUser.user?.displayName,
+      }
+      axiosBaseUrlPublic(`/login/${info.email}`).then((res) =>
+        localStorage.setItem("accessToken", res.data?.accessToken)
+      )
+      axiosBaseUrlPublic.post("/profile", info).then((res) => res.data)
+      navigate(from, { replace: true })
+    }
+  }, [cUser?.user?.email, cUser?.user?.displayName, from, navigate])
 
   const onSubmit = async (data) => {
     if (data.password !== data.rePassword) {
       toast.error("Password does not match")
       return
     }
-
     await createUserWithEmailAndPassword(data.email, data.password)
-
     const displayName = { displayName: data.name }
-
     await updateProfile(displayName)
-
-    console.log("RESULT", data)
     reset()
   }
 
-  const navigate = useNavigate()
-  const location = useLocation()
-  const from = location.state?.from?.pathname || "/"
-
-  if (cUser) {
-    navigate(from, { replace: true })
-  }
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
@@ -132,11 +137,7 @@ const Register = () => {
                 </Link>
               </label>
 
-              <button
-                type="submit"
-            
-                className="btn btn-primary"
-              >
+              <button type="submit" className="btn btn-primary">
                 Register
               </button>
             </div>

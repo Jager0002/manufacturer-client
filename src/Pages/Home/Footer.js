@@ -38,7 +38,7 @@ const Footer = () => {
           <form onSubmit={handleNews}>
             <div className="flex flex-col gap-2">
               <input
-                className="p-2 focus:outline-secondary"
+                className="p-2 focus:outline-primary"
                 type="email"
                 name="email"
                 placeholder="enter email"

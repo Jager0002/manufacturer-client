@@ -1,12 +1,15 @@
 import { signOut } from "firebase/auth"
 import React from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { Link } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import auth from "../../Firebase/firebase.init"
 
 const Navbar = () => {
   const [user] = useAuthState(auth)
+  const { pathname } = useLocation()
 
+
+  
   return (
     // user will see dashboard, my orders,add a review, my profile.....(nested route)
     // my profile has an update profile option
@@ -35,32 +38,44 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <Link to="/">Home</Link>
+              <NavLink to="/">Home</NavLink>
             </li>
+            {pathname.includes("dashboard") || (
+              <li>
+                <NavLink to="/dashboard">Dashboard</NavLink>
+              </li>
+            )}
+            {pathname.includes("dashboard") && (
+              <li>
+                <label
+                  htmlFor="dashboard-drawer"
+                  className="drawer-button lg:hidden"
+                >
+                  Open drawer
+                </label>
+              </li>
+            )}
             <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/blog">Blog</Link>
+              <NavLink to="/blog">Blog</NavLink>
             </li>
           </ul>
         </div>
         <div className="flex-1">
-          <Link to={"/"} className="btn btn-ghost normal-case text-xl">
+          <NavLink to={"/"} className="btn btn-ghost normal-case text-xl">
             Alyona Industries Ltd.
-          </Link>
+          </NavLink>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal p-0">
             <li>
-              <Link to="/">Home</Link>
+              <NavLink to="/">Home</NavLink>
             </li>
 
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+              <NavLink to="/dashboard">Dashboard</NavLink>
             </li>
             <li>
-              <Link to="/blog">Blog</Link>
+              <NavLink to="/blog">Blog</NavLink>
             </li>
           </ul>
         </div>
@@ -70,7 +85,7 @@ const Navbar = () => {
             <button onClick={() => signOut(auth)}> Sign Out</button>
           </div>
         ) : (
-          <Link to="/login"> Login</Link>
+          <NavLink to="/login"> Login</NavLink>
         )}
       </div>
     </div>

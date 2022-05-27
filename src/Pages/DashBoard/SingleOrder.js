@@ -1,12 +1,17 @@
 import React, { useState } from "react"
+import { toast } from "react-toastify"
+import { axiosBaseUrl } from "../../Api/axiosBaseUrl"
+import RemoveOrderModal from "../../Components/Modal/RemoveOrderModal"
 
 const SingleOrder = ({ order, refetch }) => {
-  const { partname, addquantity, productid, totalPrice, paid } = order
+  const { partname, addquantity, productid, totalPrice, paid, _id } = order
   const [isModal, setIsModal] = useState(false)
   const handleCancel = () => {
     if (isModal) {
-      //cancel order
-      refetch()
+      axiosBaseUrl.delete(`/order?id=${_id}`).then(() => {
+        toast.success("order cancelled")
+        refetch()
+      })
     }
   }
   return (
@@ -22,18 +27,16 @@ const SingleOrder = ({ order, refetch }) => {
         </td>
         <td>transaction id</td>
         <td>
-          <button className="btn btn-warning">cancel</button>
+          <label
+            htmlFor="remove-order-modal"
+            className="btn btn-warning"
+            onClick={() => setIsModal(true)}
+          >
+            cancel
+          </label>
         </td>
+        <td>{isModal && <RemoveOrderModal handleCancel={handleCancel} />}</td>
       </tr>
-      {isModal && (
-        <label
-          htmlFor="remove-order-modal"
-          handleCancel={handleCancel}
-          className="btn btn-danger"
-        >
-          cancel
-        </label>
-      )}
     </>
   )
 }

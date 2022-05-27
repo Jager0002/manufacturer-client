@@ -10,14 +10,13 @@ import Navbar from "./Components/Navbar/Navbar"
 import DashBoard from "./Pages/DashBoard/DashBoard"
 import Blogs from "./Pages/Blogs/Blogs"
 
-import AddAReview from "./Pages/AddAReview/AddAReview"
-import MyProfile from "./Pages/MyProfile/MyProfile"
 import NotFound from "./Pages/NotFound/NotFound"
 import Payment from "./Pages/Purchase/Payment"
 import MyOrder from "./Pages/DashBoard/MyOrder"
+import AddAReview from "./Pages/DashBoard/AddAReview"
+import MyProfile from "./Pages/DashBoard/MyProfile"
 
 function App() {
-  // prettier-ignore
   return (
     <div>
       <ToastContainer autoClose={3000} transition={Slide} />
@@ -52,7 +51,11 @@ function App() {
               <DashBoard></DashBoard>
             </RequireAuth>
           }
-        ></Route>
+        >
+          <Route index element={<MyProfile />}></Route>
+          <Route path="addreview" element={<AddAReview />}></Route>
+          <Route path="myorder" element={<MyOrder />}></Route>
+        </Route>
         <Route path="/blogs" element={<Blogs />}></Route>
         <Route path="*" element={<NotFound />}></Route>
 
