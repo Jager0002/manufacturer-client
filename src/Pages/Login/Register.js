@@ -21,6 +21,8 @@ const Register = () => {
     reset,
   } = useForm({ mode: "onChange" })
 
+  console.log(errors)
+
   const onSubmit = async (data) => {
     if (data.password !== data.rePassword) {
       toast.error("Password does not match")
@@ -130,7 +132,11 @@ const Register = () => {
                 </Link>
               </label>
 
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+            
+                className="btn btn-primary"
+              >
                 Register
               </button>
             </div>

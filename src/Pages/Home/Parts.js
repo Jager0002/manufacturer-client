@@ -1,17 +1,16 @@
-import axios from "axios"
-import React, { useEffect, useState } from "react"
-import axiosBaseUrl from "../../Api/axiosBaseUrl"
+import React from "react"
+import useParts from "../../Hooks/useParts"
 import SinglePart from "./SinglePart"
 
 const Parts = () => {
-  const [parts, setParts] = useState([])
-  useEffect(() => {
-    axiosBaseUrl("/parts").then((res) => setParts(res.data))
-  }, [])
+  const { parts, isLoading } = useParts()
+  // console.log(parts)
+
+  if (isLoading) return
   return (
-    <div className="">
+    <div className="w-4/5 mx-auto">
       <h2 className="text-center text-4xl m-4 ">Products</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mt-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mt-16 justify-items-center">
         {parts?.map((part) => (
           <SinglePart part={part} key={part.name}></SinglePart>
         ))}

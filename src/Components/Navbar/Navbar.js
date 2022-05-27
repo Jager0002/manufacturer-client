@@ -6,7 +6,6 @@ import auth from "../../Firebase/firebase.init"
 
 const Navbar = () => {
   const [user] = useAuthState(auth)
-  console.log(user)
 
   return (
     // user will see dashboard, my orders,add a review, my profile.....(nested route)
@@ -42,13 +41,7 @@ const Navbar = () => {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <Link to="/myorder">My Orders</Link>
-            </li>
-            <li>
-              <Link to="/addreview">Add A Review</Link>
-            </li>
-            <li>
-              <Link to="/myprofile">My Profile</Link>
+              <Link to="/blog">Blog</Link>
             </li>
           </ul>
         </div>
@@ -67,23 +60,17 @@ const Navbar = () => {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <Link to="/myorder">My Orders</Link>
-            </li>
-            <li>
-              <Link to="/addreview">Add A Review</Link>
-            </li>
-            <li>
-              <Link to="/myprofile">My Profile</Link>
+              <Link to="/blog">Blog</Link>
             </li>
           </ul>
         </div>
         {user ? (
           <div>
             <p>{user.displayName} </p>
-            <button onClick={() => signOut(auth)}>Sign Out</button>
+            <button onClick={() => signOut(auth)}> Sign Out</button>
           </div>
         ) : (
-          <Link to="/login">Login</Link>
+          <Link to="/login"> Login</Link>
         )}
       </div>
     </div>

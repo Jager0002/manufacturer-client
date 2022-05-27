@@ -9,11 +9,15 @@ import Purchase from "./Pages/Purchase/Purchase"
 import Navbar from "./Components/Navbar/Navbar"
 import DashBoard from "./Pages/DashBoard/DashBoard"
 import Blogs from "./Pages/Blogs/Blogs"
-import MyOrders from "./Pages/MyOrders/MyOrders"
+
 import AddAReview from "./Pages/AddAReview/AddAReview"
 import MyProfile from "./Pages/MyProfile/MyProfile"
+import NotFound from "./Pages/NotFound/NotFound"
+import Payment from "./Pages/Purchase/Payment"
+import MyOrder from "./Pages/DashBoard/MyOrder"
 
 function App() {
+  // prettier-ignore
   return (
     <div>
       <ToastContainer autoClose={3000} transition={Slide} />
@@ -22,6 +26,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
+
         <Route
           path="/purchase/:id"
           element={
@@ -30,11 +35,27 @@ function App() {
             </RequireAuth>
           }
         ></Route>
-        <Route path="/dashboard" element={<DashBoard />}></Route>
+
+        <Route
+          path="/payment"
+          element={
+            <RequireAuth>
+              <Payment />
+            </RequireAuth>
+          }
+        ></Route>
+
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <DashBoard></DashBoard>
+            </RequireAuth>
+          }
+        ></Route>
         <Route path="/blogs" element={<Blogs />}></Route>
-        <Route path="/myorder" element={<MyOrders />}></Route>
-        <Route path="/addreview" element={<AddAReview />}></Route>
-        <Route path="/myprofile" element={<MyProfile />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
+
         {/* 404 page */}
       </Routes>
     </div>

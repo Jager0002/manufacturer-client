@@ -9,6 +9,7 @@ const SinglePart = ({ part }) => {
     minimumQuantity,
     availableQuantity,
     price,
+    _id,
   } = part
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
@@ -20,9 +21,9 @@ const SinglePart = ({ part }) => {
         <p>{description.slice(0, 200)}</p>
         <p>Minimum Quantinty :{minimumQuantity}</p>
         <p>Available Quantinty :{availableQuantity}</p>
-        <p>Price :{price}</p>
+        <p>Price :{price}$</p>
         <div className="card-actions">
-          <Link to={`/purchase/{$id}`} className="btn btn-primary">
+          <Link to={`/purchase/${_id}`} className="btn btn-primary">
             Purchase
           </Link>
         </div>

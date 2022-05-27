@@ -1,10 +1,10 @@
 import React from "react"
+import { Outlet } from "react-router-dom"
 
 const DashBoard = () => {
   return (
     <div>
-      <h2>Dashboard</h2>
-      
+      <Outlet></Outlet>
     </div>
   )
 }

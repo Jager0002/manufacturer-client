@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import auth from "../../Firebase/firebase.init"
 import { useSignInWithGoogle } from "react-firebase-hooks/auth"
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth"
 import { toast } from "react-toastify"
+import { axiosBaseUrlPublic } from "../../Api/axiosBaseUrl"
 
 const Login = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth)
@@ -17,15 +18,21 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm()
+  } = useForm({ mode: "onChange" })
 
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || "/"
 
-  if (eUser || gUser) {
-    navigate(from, { replace: true })
-  }
+  useEffect(() => {
+    if (eUser || gUser) {
+      const email = eUser?.email || gUser?.email
+      navigate(from, { replace: true })
+      axiosBaseUrlPublic(`/login/${email}`).then((res) =>
+        localStorage.setItem("accessToken", res.data?.accessToken)
+      )
+    }
+  }, [eUser, gUser, navigate, from])
 
   const onSubmit = (data) => {
     if (eUser) toast.success("You are logged in")
