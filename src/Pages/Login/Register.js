@@ -8,6 +8,7 @@ import {
   useUpdateProfile,
 } from "react-firebase-hooks/auth"
 import { axiosBaseUrlPublic } from "../../Api/axiosBaseUrl"
+import Spinner from "../../Components/Spinner/Spinner"
 
 const Register = () => {
   const [createUserWithEmailAndPassword, cUser, cLoading, cError] =
@@ -41,10 +42,10 @@ const Register = () => {
   }, [cUser?.user?.email, cUser?.user?.displayName, from, navigate])
 
   useEffect(() => {
-    if(cError) {
+    if (cError) {
       toast.error(cError.message)
     }
-  },[cError])
+  }, [cError])
   const onSubmit = async (data) => {
     if (data.password !== data.rePassword) {
       toast.error("Password does not match")
@@ -55,7 +56,7 @@ const Register = () => {
     await updateProfile(displayName)
     reset()
   }
-
+  if (cLoading) return <Spinner></Spinner>
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">

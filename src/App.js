@@ -20,6 +20,7 @@ import ManageOrder from "./Pages/DashBoard/ManageOrder"
 import PaymentForm from "./Pages/Purchase/PaymentForm"
 import AllProducts from "./Pages/DashBoard/AllProducts"
 import AddProduct from "./Pages/DashBoard/AddProduct"
+import RequireAdmin from "./Authentication/RequireAdmin"
 
 function App() {
   return (
@@ -60,10 +61,38 @@ function App() {
           <Route index element={<MyProfile />}></Route>
           <Route path="addreview" element={<AddAReview />}></Route>
           <Route path="myorder" element={<MyOrder />}></Route>
-          <Route path="makeadmin" element={<MakeAdmin />}></Route>
-          <Route path="manageorder" element={<ManageOrder />}></Route>
-          <Route path="allproducts" element={<AllProducts />}></Route>
-          <Route path="addproduct" element={<AddProduct />}></Route>
+          <Route
+            path="makeadmin"
+            element={
+              <RequireAdmin>
+                <MakeAdmin />
+              </RequireAdmin>
+            }
+          ></Route>
+          <Route
+            path="manageorder"
+            element={
+              <RequireAdmin>
+                <ManageOrder />
+              </RequireAdmin>
+            }
+          ></Route>
+          <Route
+            path="allproducts"
+            element={
+              <RequireAdmin>
+                <AllProducts />
+              </RequireAdmin>
+            }
+          ></Route>
+          <Route
+            path="addproduct"
+            element={
+              <RequireAdmin>
+                <AddProduct />
+              </RequireAdmin>
+            }
+          ></Route>
         </Route>
         <Route path="/blogs" element={<Blogs />}></Route>
         <Route path="*" element={<NotFound />}></Route>

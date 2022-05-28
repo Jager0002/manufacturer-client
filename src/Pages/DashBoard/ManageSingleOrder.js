@@ -19,7 +19,6 @@ const ManageSingleOrder = ({ order, refetch }) => {
   const handleCancel = () => {
     if (isModal && !paid) {
       axiosBaseUrl.delete(`/order?id=${_id}`).then((res) => {
-        console.log(res)
         toast.success("Order Canceled")
         refetch()
       })
@@ -30,7 +29,7 @@ const ManageSingleOrder = ({ order, refetch }) => {
     const shipmentInfo = {
       productid,
       shipped: true,
-      addquantity
+      addquantity,
     }
     axiosBaseUrl.patch(`/order/confirm/${_id}`, shipmentInfo).then(() => {
       toast.success("product shipped")

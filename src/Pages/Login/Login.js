@@ -6,6 +6,7 @@ import { useSignInWithGoogle } from "react-firebase-hooks/auth"
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth"
 import { toast } from "react-toastify"
 import { axiosBaseUrlPublic } from "../../Api/axiosBaseUrl"
+import Spinner from "../../Components/Spinner/Spinner"
 
 const Login = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth)
@@ -26,6 +27,7 @@ const Login = () => {
 
   useEffect(() => {
     if (eUser || gUser) {
+      toast.success("Logged in")
       const info = {
         email: gUser?.user?.email,
         name: gUser?.user?.displayName,
@@ -39,17 +41,15 @@ const Login = () => {
     }
   }, [eUser, gUser, navigate, from])
 
-  const onSubmit = (data) => {
-    if (eUser || gUser) {
-      toast.success("You are logged in")
-    }
-    // else {
-    //   toast.error("Login Failed, check email and password")
-    // }
+  useEffect(() => {
+    if (eError) toast.error(eError.message)
+  }, [eError])
 
+  const onSubmit = (data) => {
     signInWithEmailAndPassword(data.email, data.password)
     reset()
   }
+  if (eLoading || gLoading) return <Spinner></Spinner>
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">

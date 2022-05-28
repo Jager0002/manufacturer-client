@@ -12,7 +12,7 @@ const MakeAdmin = () => {
   } = useQuery("alluser", () => axiosBaseUrl("/user").then((res) => res.data))
 
   if (isLoading) return <Spinner></Spinner>
-  console.log(users)
+
   return (
     <div className="overflow-x-auto">
       <table className="table w-full">
