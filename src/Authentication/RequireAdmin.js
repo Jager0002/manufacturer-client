@@ -1,23 +1,19 @@
-import React, { useState } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { Navigate, useLocation } from "react-router-dom"
-import { axiosBaseUrl } from "../Api/axiosBaseUrl"
+import { Navigate } from "react-router-dom"
+import Spinner from "../Components/Spinner/Spinner"
 import auth from "../Firebase/firebase.init"
+import useAdmin from "../Hooks/useAdmin"
 
 const RequireAdmin = ({ children }) => {
   const [user, loading] = useAuthState(auth)
-  const [role, setRole] = useState("")
-  axiosBaseUrl(`/user/single?email=${user.email}`).then((res) =>
-    setRole(res.data?.role)
-  )
+  const [admin, adminLoading] = useAdmin(user)
 
-  if (loading) {
-    return
+  if (loading || adminLoading) {
+    return <Spinner />
   }
-  if (role !== "admin") {
-    return <Navigate to="/"></Navigate>
+  if (!user || admin !== "admin") {
+    return <Navigate to="/" />
   }
-
   return children
 }
 
