@@ -1,15 +1,18 @@
 import React from "react"
+import { useAuthState } from "react-firebase-hooks/auth"
 import { useQuery } from "react-query"
 import { axiosBaseUrl } from "../../Api/axiosBaseUrl"
+import auth from "../../Firebase/firebase.init"
 import SingleOrder from "./SingleOrder"
 
 const MyOrder = () => {
+  const [user] = useAuthState(auth)
   const {
     data: orders,
     isLoading,
     refetch,
   } = useQuery("rabbit2", () =>
-    axiosBaseUrl(`/orders/all`).then((res) => res.data)
+    axiosBaseUrl(`/myorder?email=${user.email}`).then((res) => res.data)
   )
   if (isLoading) return
   return (
@@ -22,7 +25,8 @@ const MyOrder = () => {
             <th>Price</th>
             <th>Status</th>
             <th>Transaction id</th>
-            <th>pay/cancel</th>
+            <th>Cancel</th>
+            <th>Pay</th>
           </tr>
         </thead>
         <tbody>

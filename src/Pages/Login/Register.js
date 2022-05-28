@@ -40,6 +40,11 @@ const Register = () => {
     }
   }, [cUser?.user?.email, cUser?.user?.displayName, from, navigate])
 
+  useEffect(() => {
+    if(cError) {
+      toast.error(cError.message)
+    }
+  },[cError])
   const onSubmit = async (data) => {
     if (data.password !== data.rePassword) {
       toast.error("Password does not match")

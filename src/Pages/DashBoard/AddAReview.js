@@ -23,9 +23,9 @@ const AddAReview = () => {
     // rating system
     // this will be added to the home page review section
     // every review on home page(no limit)
-    <div>
+    <div className="mx-auto">
       <form onSubmit={handleAddReview}>
-        <div className="rating">
+        <div className="rating py-4 flex justify-center">
           <input
             type="radio"
             name="rating-4"
@@ -63,13 +63,15 @@ const AddAReview = () => {
             rows="6"
             cols="60"
             name="feedback"
-            className="border"
+            className="border py-4"
             placeholder="give us some feedback"
           ></textarea>
         </div>
-        <button className="btn btn-primary" type="submit">
-          add review
-        </button>
+        <div className="py-2 flex justify-center">
+          <button className="btn btn-primary " type="submit">
+            add review
+          </button>
+        </div>
       </form>
     </div>
   )

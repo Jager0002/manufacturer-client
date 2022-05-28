@@ -26,18 +26,28 @@ const Login = () => {
 
   useEffect(() => {
     if (eUser || gUser) {
-      const email = eUser?.email || gUser?.email
-      navigate(from, { replace: true })
+      const info = {
+        email: gUser?.user?.email,
+        name: gUser?.user?.displayName,
+      }
+      const email = eUser?.user?.email || gUser?.user?.email
       axiosBaseUrlPublic(`/login/${email}`).then((res) =>
         localStorage.setItem("accessToken", res.data?.accessToken)
       )
+      axiosBaseUrlPublic.post("/profile", info).then((res) => res.data)
+      navigate(from, { replace: true })
     }
   }, [eUser, gUser, navigate, from])
 
   const onSubmit = (data) => {
-    if (eUser) toast.success("You are logged in")
+    if (eUser || gUser) {
+      toast.success("You are logged in")
+    }
+    // else {
+    //   toast.error("Login Failed, check email and password")
+    // }
+
     signInWithEmailAndPassword(data.email, data.password)
-    console.log("RESULT", data)
     reset()
   }
   return (

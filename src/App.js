@@ -11,10 +11,15 @@ import DashBoard from "./Pages/DashBoard/DashBoard"
 import Blogs from "./Pages/Blogs/Blogs"
 
 import NotFound from "./Pages/NotFound/NotFound"
-import Payment from "./Pages/Purchase/Payment"
+
 import MyOrder from "./Pages/DashBoard/MyOrder"
 import AddAReview from "./Pages/DashBoard/AddAReview"
 import MyProfile from "./Pages/DashBoard/MyProfile"
+import MakeAdmin from "./Pages/DashBoard/MakeAdmin"
+import ManageOrder from "./Pages/DashBoard/ManageOrder"
+import PaymentForm from "./Pages/Purchase/PaymentForm"
+import AllProducts from "./Pages/DashBoard/AllProducts"
+import AddProduct from "./Pages/DashBoard/AddProduct"
 
 function App() {
   return (
@@ -36,10 +41,10 @@ function App() {
         ></Route>
 
         <Route
-          path="/payment"
+          path="/paymentform/:id"
           element={
             <RequireAuth>
-              <Payment />
+              <PaymentForm />
             </RequireAuth>
           }
         ></Route>
@@ -55,6 +60,10 @@ function App() {
           <Route index element={<MyProfile />}></Route>
           <Route path="addreview" element={<AddAReview />}></Route>
           <Route path="myorder" element={<MyOrder />}></Route>
+          <Route path="makeadmin" element={<MakeAdmin />}></Route>
+          <Route path="manageorder" element={<ManageOrder />}></Route>
+          <Route path="allproducts" element={<AllProducts />}></Route>
+          <Route path="addproduct" element={<AddProduct />}></Route>
         </Route>
         <Route path="/blogs" element={<Blogs />}></Route>
         <Route path="*" element={<NotFound />}></Route>

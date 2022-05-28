@@ -13,13 +13,6 @@ const Purchase = () => {
   // protected
   //     redirects to login if no user
   //     after login dont redirect to login
-  //     detailed information of items that was clicked
-
-  //     Display User name and Email
-
-  //     Adress, phone number, Order quantity(increase/decrease input field){Min min Max max: show error if not fulfuil requirement}, confirm purchase
-
-  //     Do not block non verified emails
 
   const { data: part, isLoading } = useQuery(["rabbit", id], () =>
     axiosBaseUrl(`/part/${id}`).then((res) => res.data)

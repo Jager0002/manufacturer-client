@@ -5,6 +5,7 @@ import { useQuery } from "react-query"
 import { axiosBaseUrl } from "../../Api/axiosBaseUrl"
 import auth from "../../Firebase/firebase.init"
 import Spinner from "../../Components/Spinner/Spinner"
+import { toast } from "react-toastify"
 
 const MyProfile = () => {
   const [user] = useAuthState(auth)
@@ -21,24 +22,35 @@ const MyProfile = () => {
     axiosBaseUrl.put(`/profile?email=${user.email}`, data).then(() => {
       refetch()
       reset()
+      toast.success("Profile Updated")
     })
   }
   return (
-    //for user and admin
-    // the user will see their name and email address on this profile
-    // different fields like education location phone number linkedin profile link etc (save this in database also can update)
-
-    <div className="md:grid grid-cols-2">
-      <div>
-        <h2>My Profile</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 justify-items-center items-center">
+      <div className="space-y-2">
+        <h2 className="text-xl font-bold">My Profile</h2>
         <img src={user.photoURL} alt="" />
-        <p>Name: {user.displayName}</p>
-        <p>Email: {user.email}</p>
-        <p>Address :{profile.address}</p>
-        <p>Linkedin :{profile.linkedin}</p>
-        <p>Phone Number : {profile.phoneNumber}</p>
+        <p>
+          <span className="text-slate-500 underline">Name: </span>{" "}
+          {user.displayName}
+        </p>
+        <p>
+          <span className="text-slate-500 underline">Email: </span> {user.email}
+        </p>
+        <p>
+          <span className="text-slate-500 underline">Address : </span>
+          {profile.address}
+        </p>
+        <p>
+          <span className="text-slate-500 underline"> Linkedin : </span>
+          {profile.linkedin}
+        </p>
+        <p>
+          <span className="text-slate-500 underline">Phone Number : </span>{" "}
+          {profile.phoneNumber}
+        </p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="w-3/5 bg-gray-100 p-4 rounded-lg">
         <div className="">
           <label className="label">
             <span className="label-text">Address</span>
@@ -55,7 +67,7 @@ const MyProfile = () => {
           </label>
           <input
             type="text"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full "
             {...register("linkedin")}
           />
         </div>
@@ -69,9 +81,11 @@ const MyProfile = () => {
             {...register("phoneNumber")}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Update
-        </button>
+        <div className="mt-4">
+          <button type="submit" className="btn btn-primary mx-auto block">
+            Update
+          </button>
+        </div>
       </form>
     </div>
   )
