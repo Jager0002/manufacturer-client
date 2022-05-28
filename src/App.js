@@ -21,6 +21,7 @@ import PaymentForm from "./Pages/Purchase/PaymentForm"
 import AllProducts from "./Pages/DashBoard/AllProducts"
 import AddProduct from "./Pages/DashBoard/AddProduct"
 import RequireAdmin from "./Authentication/RequireAdmin"
+import MyPortfolio from "./Pages/MyPortfolio/MyPortfolio"
 
 function App() {
   return (
@@ -94,8 +95,12 @@ function App() {
             }
           ></Route>
         </Route>
-        <Route path="/blogs" element={<Blogs />}></Route>
+        <Route path="/blog" element={<Blogs />}></Route>
         <Route path="*" element={<NotFound />}></Route>
+        <Route
+          path="/myportfolio"
+          element={<MyPortfolio></MyPortfolio>}
+        ></Route>
 
         {/* 404 page */}
       </Routes>

@@ -11,17 +11,12 @@ const Home = () => {
   return (
     <div>
       <Banner></Banner>
-      {/*     
-
-      2 more section
-      
-      */}
       <div className="space-y-20 my-14">
         <Parts></Parts>
-        <BusinessSummary></BusinessSummary>
-        <Review></Review>
         <BestSellingBike></BestSellingBike>
         <ShipmentFeature></ShipmentFeature>
+        <BusinessSummary></BusinessSummary>
+        <Review></Review>
       </div>
       <Footer></Footer>
     </div>

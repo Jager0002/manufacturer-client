@@ -12,11 +12,14 @@ const Review = () => {
   if (isLoading) return <Spinner />
 
   return (
-    <div className="sm:grid grid-cols-2 lg:grid-cols-3 gap-8 w-4/5 mx-auto">
-      {data.map((review) => (
-        <SingleReview key={review._id} review={review} />
-      ))}
-    </div>
+    <>
+      <h2 className="text-3xl text-center mb-8 font-bold">Customer Review</h2>
+      <div className="sm:grid grid-cols-2 lg:grid-cols-3 gap-8 w-4/5 mx-auto">
+        {data.map((review) => (
+          <SingleReview key={review._id} review={review} />
+        ))}
+      </div>
+    </>
   )
 }
 

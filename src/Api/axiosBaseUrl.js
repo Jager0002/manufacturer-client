@@ -1,11 +1,11 @@
 import axios from "axios"
 
 const axiosBaseUrl = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://blooming-plateau-18932.herokuapp.com",
 })
 
 const axiosBaseUrlPublic = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://blooming-plateau-18932.herokuapp.com",
 })
 
 axiosBaseUrl.interceptors.request.use(

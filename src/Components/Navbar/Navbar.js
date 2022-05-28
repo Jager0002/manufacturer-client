@@ -8,8 +8,6 @@ const Navbar = () => {
   const [user] = useAuthState(auth)
   const { pathname } = useLocation()
 
-
-  
   return (
     // user will see dashboard, my orders,add a review, my profile.....(nested route)
     // my profile has an update profile option
@@ -58,6 +56,9 @@ const Navbar = () => {
             <li>
               <NavLink to="/blog">Blog</NavLink>
             </li>
+            <li>
+              <NavLink to="/myportfolio">Portfolio</NavLink>
+            </li>
           </ul>
         </div>
         <div className="flex-1">
@@ -76,6 +77,9 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink to="/blog">Blog</NavLink>
+            </li>
+            <li>
+              <NavLink to="/myportfolio">Portfolio</NavLink>
             </li>
           </ul>
         </div>
